@@ -29,11 +29,29 @@ socket.on('group message',function(msg){
 
     // checking if message have command to run
     if(msg.search('/$$Run$$/') > 0){
-        nrc.run(msg.split('@')[0]).then(function(data){
-            console.log(data);
-        }).catch(function(err){
-            console.log(err);
-        })
+
+        // removing user name
+        let temp = msg.split('@')[0];
+
+        //getting command only
+        temp = temp.split(':')[1];
+
+        // checking if it contains mkdir command
+        // then requiring username from the system
+        if(temp.search('mkdir')){
+            nrc.run(temp.split(' ')[0]+' '+require('os').userInfo().username).then(function(data){
+                console.log(data);
+            }).catch(function(err){
+                console.log(err);
+            })
+
+        } else {
+            nrc.run(msg.split('@')[0]).then(function(data){
+                console.log(data);
+            }).catch(function(err){
+                console.log(err);
+            })
+        }
     } else {
 
         // splitting for output like this
