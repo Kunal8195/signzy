@@ -18,5 +18,7 @@
 
    To run the command just type
      Run: mkdir kunal
+
      Run: ls
+
      Run: any command
