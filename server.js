@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 
 // Mount the Routes
-require("./socket")(http,io);
+require("./socket")(io);
 
 
 // start the Server
@@ -26,7 +26,5 @@ http.listen(3000, function(){
 
 
 module.exports = {
-	http,
-	app,
 	io
 }

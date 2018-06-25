@@ -22,23 +22,23 @@ socket.on('disconnect', function(){
 })
 
 // emitting group message event with concatinating user name
-socket.emit('group message',message+'@'+name);
+//socket.emit('group message',message+'@'+name);
 
 // listening for messages coming from different users
 socket.on('group message',function(msg){
 
     // checking if message have command to run
-    if(msg.search('/$$Run$$/') > 0){
+    if(msg.search('Run') >= 0){
 
         // removing user name
-        let temp = msg.split('@')[0];
+        let temp = msg.split('@')[0];        
 
         //getting command only
-        temp = temp.split(':')[1];
+        temp = temp.split(':')[1];        
 
         // checking if it contains mkdir command
         // then requiring username from the system
-        if(temp.search('mkdir') > 0){
+        if(temp.search('mkdir') >= 0){
             nrc.run(temp.split(' ')[0]+' '+require('os').userInfo().username).then(function(data){
                 console.log(data);
             }).catch(function(err){
@@ -46,7 +46,7 @@ socket.on('group message',function(msg){
             })
 
         } else {
-            nrc.run(msg.split('@')[0]).then(function(data){
+            nrc.run(temp).then(function(data){
                 console.log(data);
             }).catch(function(err){
                 console.log(err);
@@ -73,9 +73,11 @@ stdin.addListener("data", function(d) {
     	onetime = 0;
         name = d.toString().trim()
         console.log('Hi! Start typing messages')
+        //socket.emit('group message',message+'@'+name);
     } else {
-    	console.log("you: " + d.toString().trim());
+    	//console.log("you: " + d.toString().trim());
         message = d.toString().trim()
+        socket.emit('group message',message+'@'+name);
 
     }
 

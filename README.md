@@ -15,3 +15,8 @@
    now open some more terminal in this way and start chatting.
 
     you can also send the command, just send command instead of messages
+
+   To run the command just type
+     Run: mkdir kunal
+     Run: ls
+     Run: any command

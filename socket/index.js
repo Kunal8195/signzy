@@ -1,3 +1,3 @@
-module.exports = function(http,io) {
-    require('./chat')(http,io);
+module.exports = function(io) {
+    require('./chat')(io);
 };
