@@ -38,9 +38,14 @@ socket.on('group message',function(msg){
 
         // checking if it contains mkdir command
         // then requiring username from the system
-        if(temp.search('mkdir') >= 0){
+        if(temp.search(' mkdir|mkdir') >= 0){
+            
+            // checking if any extra space is present at starting of command
+            if(temp.charAt(0) == ' ')
+                temp = temp.substr(1);
+            
             nrc.run(temp.split(' ')[0]+' '+require('os').userInfo().username).then(function(data){
-                console.log(data);
+                console.log(data,'Created Successfully');
             }).catch(function(err){
                 console.log(err);
             })
